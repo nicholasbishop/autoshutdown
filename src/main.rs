@@ -6,13 +6,12 @@ extern crate structopt;
 use regex::Regex;
 use simple_error::SimpleError;
 use std::error::Error;
-use std::fs::File;
-use std::io::{Read, Write};
+use std::fs;
 use std::os::unix::process::CommandExt;
 use std::path::PathBuf;
 use std::process::Command;
 use std::thread::sleep;
-use std::time::{Duration, SystemTime, UNIX_EPOCH};
+use std::time::{Duration, SystemTime};
 use structopt::StructOpt;
 
 fn parse_duration(input: &str) -> Result<Duration, Box<Error>> {
@@ -50,19 +49,12 @@ struct Config {
 }
 
 fn read_last_heartbeat(config: &Config) -> Result<SystemTime, Box<Error>> {
-    let mut f = File::open(&config.heartbeat_path)?;
-    let mut contents = String::new();
-    f.read_to_string(&mut contents)?;
-    let seconds: u64 = contents.parse()?;
-    let duration = Duration::from_secs(seconds);
-    Ok(UNIX_EPOCH + duration)
+    let metadata = fs::metadata(&config.heartbeat_path)?;
+    return Ok(metadata.modified()?)
 }
 
 fn initialize_heartbeat(config: &Config) -> Result<(), Box<Error>> {
-    let mut f = File::create(&config.heartbeat_path)?;
-    let now = SystemTime::now().duration_since(UNIX_EPOCH)?;
-    let contents = format!("{}", now.as_secs());
-    f.write(contents.as_bytes())?;
+    fs::File::create(&config.heartbeat_path)?;
     Ok(())
 }
 
