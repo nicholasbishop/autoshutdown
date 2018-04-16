@@ -1,0 +1,9 @@
+[package]
+name = "autoshutdown"
+version = "0.1.0"
+authors = ["Nicholas Bishop <nicholasbishop@gmail.com>"]
+
+[dependencies]
+regex = "*"
+simple-error = "*"
+structopt = "*"
