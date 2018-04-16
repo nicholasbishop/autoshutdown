@@ -1,0 +1,8 @@
+[Unit]
+Description=Automatically shut down the machine after a period of inactivity
+
+[Service]
+ExecStart=/usr/bin/autoshutdown
+
+[Install]
+WantedBy=multi-user.target
