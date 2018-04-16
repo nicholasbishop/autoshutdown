@@ -2,6 +2,8 @@
 name = "autoshutdown"
 version = "0.1.0"
 authors = ["Nicholas Bishop <nicholasbishop@gmail.com>"]
+description = "Automatically shut down the machine after a period of inactivity"
+repository = "https://github.com/nicholasbishop/autoshutdown"
 
 [dependencies]
 regex = "*"
