@@ -7,6 +7,6 @@ repository = "https://github.com/nicholasbishop/autoshutdown"
 license = "Apache-2.0"
 
 [dependencies]
-regex = "*"
-simple-error = "*"
-structopt = "*"
+regex = "0.2"
+simple-error = "0.1"
+structopt = "0.2"
